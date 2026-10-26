@@ -46,6 +46,7 @@ ul,ol{list-style:none}
 
 /* 今日のおかず */
 .menu{display:grid;grid-template-columns:1fr 1fr;gap:24px 14px}
+.menu img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
 .menu h3{font-size:.98rem;margin:10px 0 2px}
 .menu p{font-size:.82rem;color:var(--sub);line-height:1.6}
 
@@ -152,15 +153,15 @@ footer strong{display:block;color:var(--ink);font-weight:500;margin-bottom:4px}
 <script>
 // 毎日のメニュー：ここを書き換える（将来はスプレッドシートの内容を反映）
 const menu=[
-  {n:"鶏の照り焼き",d:"甘辛いたれで、ごはんが進みます"},
-  {n:"彩り野菜のマリネ",d:"さっぱりした酸味の一品"},
-  {n:"出汁巻き卵",d:"ふんわり、やさしい味"},
-  {n:"きんぴらごぼう",d:"歯ごたえのある定番おかず"},
-  {n:"ほうれん草のごま和え",d:"香ばしいごまの風味"},
-  {n:"鮭の塩麹焼き",d:"しっとり柔らかく焼き上げ"}
+  {n:"鶏の照り焼き",d:"甘辛いたれで、ごはんが進みます",img:"dish1.jpg"},
+  {n:"彩り野菜のマリネ",d:"さっぱりした酸味の一品",img:"dish2.jpg"},
+  {n:"出汁巻き卵",d:"ふんわり、やさしい味",img:"dish3.jpg"},
+  {n:"きんぴらごぼう",d:"歯ごたえのある定番おかず",img:"dish4.jpg"},
+  {n:"ほうれん草のごま和え",d:"香ばしいごまの風味",img:"dish5.jpg"},
+  {n:"鮭の塩麹焼き",d:"しっとり柔らかく焼き上げ",img:"dish6.jpg"}
 ];
 document.getElementById("menu").innerHTML=menu.map(m=>
-  `<li><div class="ph">写真（仮）</div><h3>${m.n}</h3><p>${m.d}</p></li>`).join("");
+  `<li>${m.img?`<img src="${m.img}" alt="${m.n}" loading="lazy" onerror="this.outerHTML='<div class=ph>写真（仮）</div>'">`:'<div class="ph">写真（仮）</div>'}<h3>${m.n}</h3><p>${m.d}</p></li>`).join("");
 const w="日月火水木金土",t=new Date();
 document.querySelectorAll(".today").forEach(e=>{
   e.textContent=`${t.getMonth()+1}月${t.getDate()}日（${w[t.getDay()]}）`;
