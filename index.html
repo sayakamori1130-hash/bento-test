@@ -54,10 +54,12 @@ ul,ol{list-style:none}
 
 /* 選び方・価格 */
 .price{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.price li{border:1px solid var(--gold);border-radius:4px;padding:20px 12px;text-align:center}
-.price b{display:block;font-family:"Cormorant Garamond","Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-variant-numeric:lining-nums;font-size:1.5rem;font-weight:600;letter-spacing:.04em;margin-bottom:4px;color:var(--gold)}
+.price li{border-radius:4px;overflow:hidden;text-align:center}
+.price li img,.price li .ph{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.price .txt{padding:16px 12px 18px}
+.price b{display:block;font-family:"Cormorant Garamond","Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-variant-numeric:lining-nums;font-size:1.5rem;font-weight:600;letter-spacing:.04em;margin-bottom:4px;color:var(--gold);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
 .price span{font-size:.88rem}
-.price-img{display:block;width:100%;height:auto;margin-bottom:20px}
+
 
 /* アクセス */
 .map{aspect-ratio:16/9;margin-bottom:20px}
@@ -105,11 +107,16 @@ footer strong{display:block;color:var(--ivory);font-weight:500;margin-bottom:4px
 <!-- ③ 選び方・価格 -->
 <section>
   <h2>選び方・価格</h2>
-  <!-- 画像は price.png（なければ price.jpg）を index.html と同じ場所に置く。どちらもなければ表示しない -->
-  <img class="price-img" src="price.png" alt="選び方・価格のイメージ画像" loading="lazy" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='price.jpg'}else{this.remove()}">
+  <!-- price1000.png / price800.png（なければ .jpg）を index.html と同じ場所に置くと、仮の枠と入れ替わる -->
   <ul class="price">
-    <li><b>1,000円</b><span>6品すべてを詰め合わせ</span></li>
-    <li><b>800円</b><span>6品から3品を選べます</span></li>
+    <li>
+      <div class="ph" data-img="price1000" data-alt="1,000円のお弁当のイメージ画像">イメージ画像（仮）</div>
+      <div class="txt"><b>1,000円</b><span>6品すべてを詰め合わせ</span></div>
+    </li>
+    <li>
+      <div class="ph" data-img="price800" data-alt="800円のお弁当のイメージ画像">イメージ画像（仮）</div>
+      <div class="txt"><b>800円</b><span>6品から3品を選べます</span></div>
+    </li>
   </ul>
 </section>
 
@@ -171,6 +178,19 @@ document.getElementById("menu").innerHTML=menu.map(m=>
 const w="日月火水木金土",t=new Date();
 document.querySelectorAll(".today").forEach(e=>{
   e.textContent=`${t.getMonth()+1}月${t.getDate()}日（${w[t.getDay()]}）`;
+});
+
+// 「選び方・価格」の画像：price1000 / price800 の .png → .jpg の順に探し、見つかれば仮の枠と入れ替える
+document.querySelectorAll("[data-img]").forEach(box=>{
+  const name=box.dataset.img,alt=box.dataset.alt||"";
+  const tryLoad=exts=>{
+    if(!exts.length)return;
+    const im=new Image();
+    im.onload=()=>{im.alt=alt;box.replaceWith(im)};
+    im.onerror=()=>tryLoad(exts.slice(1));
+    im.src=`${name}.${exts[0]}`;
+  };
+  tryLoad(["png","jpg"]);
 });
 </script>
 </body>
