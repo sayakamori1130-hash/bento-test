@@ -57,6 +57,7 @@ ul,ol{list-style:none}
 .price li{border:1px solid var(--gold);border-radius:4px;padding:20px 12px;text-align:center}
 .price b{display:block;font-family:"Cormorant Garamond","Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-variant-numeric:lining-nums;font-size:1.5rem;font-weight:600;letter-spacing:.04em;margin-bottom:4px;color:var(--gold)}
 .price span{font-size:.88rem}
+.price-img{display:block;width:100%;height:auto;margin-bottom:20px}
 
 /* アクセス */
 .map{aspect-ratio:16/9;margin-bottom:20px}
@@ -104,6 +105,8 @@ footer strong{display:block;color:var(--ivory);font-weight:500;margin-bottom:4px
 <!-- ③ 選び方・価格 -->
 <section>
   <h2>選び方・価格</h2>
+  <!-- 画像は price.png（なければ price.jpg）を index.html と同じ場所に置く。どちらもなければ表示しない -->
+  <img class="price-img" src="price.png" alt="選び方・価格のイメージ画像" loading="lazy" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='price.jpg'}else{this.remove()}">
   <ul class="price">
     <li><b>1,000円</b><span>6品すべてを詰め合わせ</span></li>
     <li><b>800円</b><span>6品から3品を選べます</span></li>
