@@ -41,11 +41,12 @@ ul,ol{list-style:none}
 .menu p,.sub,.info,.news li,footer{font-weight:400}
 
 /* ファーストビュー */
-.hero{border-top:0;padding-top:28px;background:linear-gradient(to bottom,rgba(248,244,236,.15) 0%,rgba(248,244,236,.55) 45%,rgba(248,244,236,.93) 100%)}
+.hero{border-top:0;padding-top:28px;background:linear-gradient(to bottom,rgba(248,244,236,.62) 0%,rgba(248,244,236,.80) 50%,rgba(248,244,236,.93) 100%);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .shop{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-size:.9rem;letter-spacing:.12em;margin-bottom:28px}
 .date{font-family:"Cormorant Garamond","Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-variant-numeric:lining-nums;font-size:2.6rem;font-weight:500;line-height:1.2;letter-spacing:.04em}
 .hero h1{font-size:1.1rem;margin:6px 0 20px}
-.hero .ph{margin-bottom:20px}
+.hero .ph,.hero img{aspect-ratio:3/2;margin-bottom:20px}
+.hero img{display:block;width:100%;object-fit:cover}
 .hero p.lead{margin-bottom:20px}
 
 /* 今日のおかず */
@@ -94,7 +95,7 @@ footer strong{display:block;color:var(--ivory);font-weight:500;margin-bottom:4px
   <p class="shop">お弁当 〇〇</p>
   <p class="date today"></p>
   <h1>今日のメニュー</h1>
-  <div class="ph">今日のおかず6品の写真（仮）</div>
+  <div class="ph" data-img="price1000" data-alt="今日のお弁当のイメージ画像">今日のおかず6品の写真（仮）</div>
   <p class="lead">日替わりのおかず6品から、お昼を選べます。</p>
   <!-- LINEの予約用リンクに差し替えてください -->
   <a class="btn" href="#reserve">LINEで予約する</a>
@@ -182,7 +183,7 @@ document.querySelectorAll(".today").forEach(e=>{
   e.textContent=`${t.getMonth()+1}月${t.getDate()}日（${w[t.getDay()]}）`;
 });
 
-// 「選び方・価格」の画像：price1000 / price800 の .png → .jpg の順に探し、見つかれば仮の枠と入れ替える
+// 画像：price1000 / price800 の .png → .jpg の順に探し、見つかれば仮の枠と入れ替える（ファーストビューも price1000 を使う）
 document.querySelectorAll("[data-img]").forEach(box=>{
   const name=box.dataset.img,alt=box.dataset.alt||"";
   const tryLoad=exts=>{
